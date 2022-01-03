@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Fighting</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="btn.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div class="game">
+        <header>
+            <h1 class=" text-center text-success">Player VS Monster</h1>
+        </header>
+    </div>
+
+
+    <div id="app">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center">Player</h2>
+                        <img src="img/1.png" alt="" height="100px" class="mx-auto d-block">
+                        <div class="healthbar">
+                            <div class="healthbar text-center " style="background-color: rgb(0, 182, 39); margin: 0; color: white;" :style="{width:playerHealth + '%'}" border="5">
+                                {{playerHealth}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center">MONSTER</h2>
+                        <img src="img/2.png" alt="" height="100px" class="mx-auto d-block">
+                        <div class="healthbar">
+                            <div class="healthbar text-center" style="background-color: rgb(199, 18, 5); margin: 0; color: white;" :style="{width:monsterHealth + '%'}">
+                                {{monsterHealth}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+        <br>
+        <h5 class="text-center">Fighting Game</h5>
+        <section class="row controls" v-if="!gameIsRunning">
+            <div class="small-12 columns" style="margin: 30px 285px;">
+                <button id="start-game" @click="startGame" type="button" class="btn btn-success" style="margin: 10px 450px ;">START</button>
+            </div>
+        </section>
+        <section class="row controls" v-else>
+            <div class="small-12 columns" style="margin: 30px 590px;">
+                <button id="attack" @click="attack" type="button" class="btn btn-light">
+                    <img src="img/3.png" alt="" width="50px">
+                    <p>Attack</p>
+                </button>
+                <button id="special-attack" @click="specialAttack" type="button" class="btn btn-light">
+                    <img src="img/4.png" alt="" width="50px">
+                    <p>Special Attack</p>
+                </button>
+                <button id="heal" @click="heal" type="button" class="btn btn-light">
+                    <img src="img/5.png" alt="" width="50px">
+                    <p>Heart</p>
+                </button>
+                <button id="give-up" @click="giveUp" type="button" class="btn btn-light">
+                    <img src="img/6.png" alt="" width="50px">
+                    <p>Giveup</p>
+                </button>
+            </div>
+        </section>
+        <section class="row log" v-if="turns.length>0">
+            <div class="small-12 columns" style="margin: 10px 630px;">
+                <ul>
+                    <li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                        {{turn.text}}
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
